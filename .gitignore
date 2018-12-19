@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# IMAGES
+server/images
+
 # Distribution / packaging
 .Python
 build/
@@ -96,9 +99,6 @@ venv.bak/
 
 # Rope project settings
 .ropeproject
-
-# mkdocs documentation
-/server
 
 # mypy
 .mypy_cache/
