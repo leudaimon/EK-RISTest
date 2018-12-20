@@ -683,9 +683,9 @@ class HtmlRenderer(Renderer):
         .major { font-weight: bold; border-top: 2px solid black; }
         .gallery td { text-align: center; width: 200px; }
     """
-    def wrap_page(self, title, body):
+    def wrap_page(self, title, family, body):
         page = t.html[t.head[t.title[title + ' - Encyclopædia Kerbonautica'], [t.link(rel="stylesheet", type="text/css", href=("styles", ".css"))]],
-                      t.body[t.h1[title], body]]
+                      t.body[t.div(Class=[family])[t.h1[title], body]]]
         return flatten(page)
     def show_dest(self, dest):
         return t.acronym(title="%s: %s" % (dest.name, dest.description))[dest.abbr]
@@ -726,7 +726,7 @@ class HtmlRenderer(Renderer):
                         ])
         return t.table[head1, head2, rows]
     def render_lv_families(self, maxdepth, maxdest):
-        return self.wrap_page("LV families", self.table_lv_families(maxdepth, maxdest))
+        return self.wrap_page("LV families", "lv-fam", self.table_lv_families(maxdepth, maxdest))
     def table_stage_families(self, maxdepth, maxdest, vac=None, root=None):
         if root:
             tree = {root: self.db.stage_tree[root]}
@@ -763,7 +763,7 @@ class HtmlRenderer(Renderer):
         return t.table[head1, head2, rows]
     def render_stage_families(self, maxdepth, maxdest, vac=None):
         title = {None: "Stage families", False: "Booster stages", True: "Upper stages"}.get(vac)
-        return self.wrap_page(title, self.table_stage_families(maxdepth, maxdest, vac=vac))
+        return self.wrap_page(title, 'stage-fam', self.table_stage_families(maxdepth, maxdest, vac=vac))
     def table_engine_families(self, maxdepth, maxdest, vac=None, root=None):
         if root:
             tree = {root: self.db.engine_tree[root]}
@@ -794,7 +794,7 @@ class HtmlRenderer(Renderer):
         return t.table[head1, head2, rows]
     def render_engine_families(self, maxdepth, maxdest, vac=None):
         title = {None: "Engine families", False: "Atmospheric engines", True: "Vacuum engines"}.get(vac)
-        return self.wrap_page(title, self.table_engine_families(maxdepth, maxdest, vac=vac))
+        return self.wrap_page(title, 'engine-fam', self.table_engine_families(maxdepth, maxdest, vac=vac))
     def render_launches_per_year(self, maxdest):
         dests = self.db.coalesce_dests(self.db.lvs.values(), maxdest)
         head1 = t.tr[t.th(rowspan=2)["Year"], t.th(rowspan=2)["Launches"], t.th(colspan=len(dests))["By destination"]]
@@ -810,7 +810,7 @@ class HtmlRenderer(Renderer):
                 return str(c) if c else '-'
             rows.append(t.tr[t.td(Class='date')[t.a(href='year?year=%d'%(year,))[year]], t.td(Class='num')[len(launches)], [t.td(Class='num')[render_d(d)] for d in dests]])
         tbl = t.table[head1, head2, rows]
-        return self.wrap_page("Launches per year", tbl)
+        return self.wrap_page("Launches per year", 'launch-per-year', tbl)
     @classmethod
     def render_result(cls, result):
         if isinstance(result, tuple):
@@ -848,7 +848,7 @@ class HtmlRenderer(Renderer):
             nextlink = t.a(href='year?year=%d'%(year + 1,))[nextlink]
         body = [t.p[prevlink, ' ', nextlink],
                 self.table_launch_history(year=year)]
-        return self.wrap_page(title, body)
+        return self.wrap_page(title, 'year-launches', body)
     def render_lv_info(self, name=None):
         if name not in self.db.lvs:
             raise Exception("No such LV '%s'"%(name,))
@@ -869,7 +869,7 @@ class HtmlRenderer(Renderer):
         if pics:
             blocks.append(t.h2["Image Gallery"])
             blocks.append(self.render_image_table(pics, 6, 200))
-        return self.wrap_page(title, blocks)
+        return self.wrap_page(title, 'lv', blocks)
     def render_stage_info(self, name=None):
         if name not in self.db.stages:
             raise Exception("No such stage '%s'"%(name,))
@@ -890,7 +890,7 @@ class HtmlRenderer(Renderer):
         blocks.append(self.table_stage_families(2, 1, root=name))
         blocks.append(t.h2["Full Launch History"])
         blocks.append(self.table_launch_history(stage=name))
-        return self.wrap_page(title, blocks)
+        return self.wrap_page(title, 'stages', blocks)
     def render_engine_info(self, name=None):
         if name not in self.db.engines:
             raise Exception("No such engine '%s'"%(name,))
@@ -909,7 +909,7 @@ class HtmlRenderer(Renderer):
         blocks.append(self.table_engine_families(2, 1, root=name))
         blocks.append(t.h2["Full Launch History"])
         blocks.append(self.table_launch_history(engine=name))
-        return self.wrap_page(title, blocks)
+        return self.wrap_page(title, 'engines', blocks)
     def render_image_table(self, pics, per_row, size=None):
         if len(pics) > per_row and len(pics) < per_row * 2:
             per_row = (len(pics) + 1) / 2
@@ -951,7 +951,7 @@ class HtmlRenderer(Renderer):
                 pics.insert(0, payload.launch_pic)
             blocks.append(t.h2["Image Gallery"])
             blocks.append(self.render_image_table(pics, 6, 200))
-        return self.wrap_page(title, blocks)
+        return self.wrap_page(title, 'payloads', blocks)
     def render_launch_info(self, name=None):
         if name not in self.db.launches_by_name:
             raise Exception("No such launch '%s'"%(name,))
@@ -966,7 +966,7 @@ class HtmlRenderer(Renderer):
         if launch.pics:
             blocks.append(t.h2["Image Gallery"])
             blocks.append(self.render_image_table(launch.pics, 6, 200))
-        return self.wrap_page(title, blocks)
+        return self.wrap_page(title, 'launch-info', blocks)
     def table_flight_history(self):
         head = t.tr[t.th["Name"], t.th["Date"], t.th["Aircraft"], t.th["Comments"]]
         rows = []
@@ -984,7 +984,7 @@ class HtmlRenderer(Renderer):
         if pics:
             body.append(t.h2["Image Gallery"])
             body.append(self.render_image_table(pics, 6, 200))
-        return self.wrap_page(title, body)
+        return self.wrap_page(title, 'flights', body)
     def render_flight_info(self, name=None):
         if name not in self.db.flights_by_name:
             raise Exception("No such flight '%s'"%(name,))
@@ -997,7 +997,7 @@ class HtmlRenderer(Renderer):
         if flight.pics:
             blocks.append(t.h2["Image Gallery"])
             blocks.append(self.render_image_table(flight.pics, 6, 200))
-        return self.wrap_page(title, blocks)
+        return self.wrap_page(title, 'flight-info', blocks)
 
 def test_html(db):
     # Render HTML tables
