@@ -1,4 +1,4 @@
--# RitS-RP1-MSA
--Website for the Race into Space game from the RO Discord for the release of RP-1
+-# EK-RISTest
+-Website for the Encyclopaedia Kerbonatica for a test run of the new RP-1 campaign
 -
 -Doing some of that testing.
