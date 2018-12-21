@@ -84,21 +84,27 @@ def papydb():
         return Payload(None, None, text)
     
     launch("WAC-First", 1951, 1, 6, WACLv, 
-        Payload("TPT", ), EA, 0, "First launch in a boosterless version of the WAC sounding rocket")
+        Payload("TPT", ), EA, 0, "First launch in a boosterless version of the WAC sounding rocket.",
+        [Picture("images/AS-361", "Our first rocket ready to be rolled out to the launch pad")])
     launch("Corporal-WAC - For space!", 1951, 1, 9, CorporalWAC, 
-        Payload("TPT", "Karman Line (Uncrewed)"), SO, 0, "First flight into space, with a Corporal-WAC, the first design for a complete sounding rocket, with kick stage for better performance and control")
+        Payload("TPT", "Karman Line (Uncrewed)"), SO, 0, "First flight into space, with a Corporal-WAC, the first design for a complete sounding rocket, with kick stage for better performance and control",
+        [Picture("images/AS-366", "The space-capable Corporal-WAC ready to be rolled out to the launch pad")])
     launch("BioSample 1", 1951, 1, 21, RD100Bio, 
-        Payload("BioSample", ),SO, 1, "Failed attempt at sending the first biological samples into space. The RD-100 engine shut down a few seconds after liftoff, and the payload reached only 9km of altitude.")
+        Payload("BioSample", ),SO, 1, "Failed attempt at sending the first biological samples into space. The RD-100 engine shut down a few seconds after liftoff, and the payload reached only 9km of altitude.",
+        [Picture("images/AS-495",""), Picture("images/AS-544",""), Picture("images/AS-548",""), Picture("images/AS-561","")])
     launch("BioSample 2", 1951, 2, 3, RD100Bio, 
-        Payload("BioSample", ),SO, 0, "First biological samples into space, using the powerhouse RD-100 engine")
+        Payload("BioSample", ),SO, 0, "First biological samples into space, using the powerhouse RD-100 engine.",
+        [Picture("images/AS-495",""), Picture("images/AS-588",""), Picture("images/AS-595",""), Picture("images/AS-602",""), Picture("images/AS-609","")])
     launch("Corporal-WAC 2", 1951, 2, 5, CorporalWAC, 
         Payload("TPT", ),SO, 0, "Further exploration of the nearby space with the Corporal-WAC sounding rocket")
     launch("Corporal-WAC 3", 1951, 2, 6, CorporalWAC, 
         Payload("TPT", ),SO, 0, "Further exploration of the nearby space with the Corporal-WAC sounding rocket")
     launch("Bumper 1", 1951, 2, 15, RD100WAC, 
-        Payload("TPT", ),SO, -3, "With the first real two-stage rocket ever lauched, even this partial sucess broke several records. The vehicle lost some aerodynamic stability in the end of the first stage burn, going into a tumble. Still reached 665km ")
+        Payload("TPT", ),SO, -3, "With the first real two-stage rocket ever lauched, even this partial sucess broke several records. The vehicle lost some aerodynamic stability in the end of the first stage burn, going into a tumble. Still reached 665km ",
+        [Picture("images/AS-657",""), Picture("images/AS-696",""), Picture("images/AS-697",""), Picture("images/AS-700",""), Picture("images/AS-704","")])
     launch("Bumper 2", 1951, 2, 23, RD100WAC, 
-        Payload("TPT", ),SO, 0, "First complete success for a bumper launch. The vehicle reached more than 1000 km of altitude, and also broke speed records.")
+        Payload("TPT", ),SO, 0, "First complete success for a bumper launch. The vehicle reached more than 1000 km of altitude, and also broke speed records.",
+        [Picture("images/AS-657","")])
     launch("Bumper SR 1", 1951, 3, 3, RD100WAC, 
         Payload("SR-0.3", ),SO, 0, "Standard Sounding Rocket payload mission using the bumper for high capacity")
     launch("Corporal-WAC SR 1", 1951, 3, 5, CorporalWAC, 
