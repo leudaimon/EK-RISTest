@@ -18,8 +18,10 @@ def papydb():
     TinyTim = Engine("Corporal", CorporalFam, vac=False)
     WAC = Engine("WAC", AerobeeFam, vac=True)
     XASR1 = Engine("XASR-1", AerobeeFam, vac=True)
+    AJ1027 = Engine("AJ10-27", AerobeeFam, vac=True)
     RD100 = Engine("RD-100", A4Fam, vac=False)
     RD101 = Engine("RD-101", A4Fam, vac=False)
+    RD103 = Engine("RD-103", A4Fam, vac=False)
 
 
     ###############################
@@ -44,6 +46,16 @@ def papydb():
         "Adapted from the A-4 Missile, this behemot sounding rocket can act both as a single stage booster for biological samples and crewed cockpits, as well as a first stage for more slim second stages")
     RD101Stg = Stage("RD-101", A4StgFam, RD101, 
         "An upgrade from the RD-100, the RD-101 has an uprated engine that hopefully allows it to be the first stage of our early satellites")
+    RD101Slim = Stage("RD-101 Tank II", A4StgFam, RD101, 
+        "An upgrade to the RD-101 stage. We developed a second generation of new, lighter tanks, and reduced the diameter for better drag control.")
+    XASRQuad = Stage("XASR-1 Quad", AerobeeStgFam, XASR1, 
+        "A heavier second stage, using 4 XASR-1 engines, this stage also benefits from the improved second generation tanks and shares the same diameter as the RD-101", 4)
+    XASRFat = Stage("XASR-1 Tank II", AerobeeStgFam, XASR1, 
+        "A third, unguided stage using a single XASR-1 engine with second generation tanks, this stage doubles as a nosecone for our LV-0 prototype vehicle")
+    RD103Stg = Stage("RD-103", A4StgFam, RD103, 
+        "An upgraded version of our first stage. We developed the RD-103 engine with larger thrust and burning time, and we streched the first stage to account for the increase in fuel.")
+    AJ27Quad = Stage("AJ10-27 Quad", AerobeeStgFam, AJ1027, 
+        "An upgraded version of our four-engined second stage. We developed the AJ10-27 engine with larger thrust and burning time, and we streched the second stage to account for the increase in fuel.", 4)
     
 
 
@@ -57,7 +69,7 @@ def papydb():
 
   
     # LAUNCH VEHICLES
-    WACLv = LV("WAC", CorporalLVFam, "A test-vehicle for the Corporal-WAC, the pure WAC uses only the sustainer stage for a lower apogee in a lower and safer flight",
+    WACLv = LV("WAC", CorporalLVFam, "A test-vehicle for the Corporal-WAC, the pure WAC uses only the sustainer stage for a lower apogee in a lower and safer flight", 
         WACStg)
     CorporalWAC = LV("Corporal-WAC", CorporalLVFam, "The first space-capable sounding rocket. With a very basic scientific payload, it is able to sniff space before crashing back in the atmosphere.", 
         CorporalStg, WACStg)
@@ -66,11 +78,19 @@ def papydb():
     RD100WAC = LV("A-4 Bumper", A4LVFam, "The first two-staged rocket to be flown, with much higher capacity than anything that preceded it.", 
         RD100Stg, WACStg)
     RD100Crew = LV("A4-X1 space coffin", A4LVFam, "Little more than a cockpit placed atop our bio sample rocket, the brave pilots to venture themselves here will be the first astronauts.", 
-    RD100Stg)
+        RD100Stg)
     CorporalXASR = LV("Corporal-XASR-1", CorporalLVFam, "An upgrade of the Corporal-WAC, this sounding rocket has the upgraded XASR-1 stage, with an uprated engine and double amount of fuel", 
         CorporalStg, XASRStg)
     RD101XASR = LV("RD-101 Bumper", A4LVFam, "An upgrade of the original bumper, both stages have been uprated, so this sounding rocket has much increased capacity, and with an additional stage and improved tanks will allow us to reach orbit.", 
         RD101Stg, XASRStg)
+    LV0 = LV("LV0 Orbital prototype", A4LVFam, "A three-staged vehicle using our second generation tanks and an RD-101 as first stage, a second stage with 4 XASR-1s and an unguided kick-stage with 1 XASR-1", 
+        RD101Slim, XASRQuad, XASRFat)
+    RD101Sound = LV("RD-101 Payload", A4LVFam, "A heavy sounding rocket for standard missions. Uses an RD-101 stage with a massive nosecone to house the payload", 
+        RD101Stg)
+    RD101XASRQuad = LV("RD-101 1.3m SR 2stg", A4LVFam, "A heavy two-staged sounding rocket for standard missions. It is a modification of our LV0 rocket, using only the first two stages and no guidance.", 
+        RD101Slim, XASRQuad)
+    RD103AJ27SR = LV("RD-103 1.3m SR 2stg", A4LVFam, "An upgraded version of our heavy two-staged sounding rocket for standard missions. It is a modification of our LV1 rocket, using only the first two stages and no guidance.", 
+        RD103Stg, AJ27Quad)
     
 
 
@@ -119,6 +139,64 @@ def papydb():
         Payload("X-1", "Karman Line (Crewed)"),SO, 0, "First crewed flight to space! Using an adapted supersonic airplane cockpit aboard our big sounding rocket, we managed to send our first astronaut to space!")
     launch("RD100 Crewed 2", 1951, 5, 8, RD100Crew, 
         Payload("X-1", ),SO, 0, "Second flight of our crewed suborbital LV, reaching a higher altitude and exploring a different region in our surroundings")
+    launch("Bumper G2 1", 1951, 5, 17, RD101XASR, 
+        Payload("SR-3x0.3", ),SO, 0, "First flight of our upgraded Bumper Sounding Rocket")
+    launch("RD100 Crewed 3", 1951, 6, 11, RD100Crew, 
+        Payload("X-1", ),SO, 0, "Our crewed suborbital flights became routine. Our two pilots are now experienced in this mission.")
+    launch("RD100 Crewed 4", 1951, 7, 6, RD100Crew, 
+        Payload("X-1", ),SO, 0, "Our crewed suborbital flights became routine. Our two pilots are now experienced in this mission.")
+    launch("Bumper G2 2", 1951, 7, 15, RD101XASR, 
+        Payload("SR-6x0.3", ),SO, 0, "Routine Sounding Rocket mission with our upgraded Bumper G2")
+    launch("Bumper G2 3", 1951, 7, 23, RD101XASR, 
+        Payload("SR-6x0.3", ),SO, 0, "Routine Sounding Rocket mission with our upgraded Bumper G2")
+    launch("First orbital", 1951, 8, 20, LV0, 
+        Payload("TPT", "First Orbit!"),LEO, 0, 
+        "With upgraded tanks, we managed to design an orbital-capable rocket. This three-staged vehicle will not win any beauty contests, or do anything more than sending a SR core into orbit, but still played its role in our Space Program, demonstrating our capability")
+    launch("Bumper G2 4", 1951, 8, 25, RD101XASR, 
+        Payload("SR-0.3", ),SO, 0, "Routine Sounding Rocket mission with our upgraded Bumper G2")
+    launch("RD101 SR 1", 1951, 8, 29, RD101Sound, 
+        Payload("SR-1.6", ),EA, 0, "First flight of our dedicated RD-101 rocket for standard SR missions")
+    launch("Bumper G2 5", 1951, 9, 2, RD101XASR, 
+        Payload("SR-0.3", ),SO, 0, "Routine Sounding Rocket mission with our upgraded Bumper G2")
+    launch("RD101 SR 2", 1951, 9, 6, RD101Sound, 
+        Payload("SR-1.6", ),EA, 0, "Routine Sounding Rocket mission with our dedicated RD-101 rocket")
+    launch("RD101 SR 3", 1951, 9, 9, RD101Sound, 
+        Payload("SR-1.6", ),EA, 0, "Routine Sounding Rocket mission with our dedicated RD-101 rocket")
+    launch("RD101 SR 4", 1951, 9, 13, RD101Sound, 
+        Payload("SR-1.6", ),SO, 0, "Routine Sounding Rocket mission with our dedicated RD-101 rocket")
+    launch("RD101 SR 5", 1951, 9, 16, RD101Sound, 
+        Payload("SR-1.6", ),EA, 1, "Routine Sounding Rocket mission with our dedicated RD-101 rocket")
+    launch("RD101 SR 6", 1951, 9, 20, RD101Sound, 
+        Payload("SR-1.6", ),SO, 0, "Routine Sounding Rocket mission with our dedicated RD-101 rocket")
+    launch("RD101 XASRQuad SR 1", 1951, 9, 25, RD101XASRQuad, 
+        Payload("SR-1.3", ),SO, 0, "First launch of our Sounding Rocket based on our orbital vehicle. A routine mission to deploy some payload.")
+    launch("RD101 XASRQuad SR 2", 1951, 9, 30, RD101XASRQuad, 
+        Payload("SR-1.3", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 SR 7", 1951, 10, 3, RD101Sound, 
+        Payload("SR-1.6", ),EA, 0, "Routine Sounding Rocket mission with our dedicated RD-101 rocket")
+    launch("RD101 XASRQuad SR 3", 1951, 10, 7, RD101XASRQuad, 
+        Payload("SR-1.3", ),SO, 2, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 4", 1951, 10, 11, RD101XASRQuad, 
+        Payload("SR-1.3", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 5", 1951, 10, 16, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 6", 1951, 10, 20, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 7", 1951, 10, 24, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 8", 1951, 10, 27, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 9", 1951, 10, 31, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 10", 1951, 11, 3, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD101 XASRQuad SR 11", 1951, 11, 7, RD101XASRQuad, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 1", 1951, 11, 14, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "First flight of the upgraded version of our heavy Sounding rocket, now using uprated engines in both stages.")
+    launch("RD103 AJ-10 SR 2", 1951, 11, 20, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle.")
+
 
   
     print "%d launches recorded" % (len(launches),)
