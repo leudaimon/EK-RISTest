@@ -56,7 +56,12 @@ def papydb():
         "An upgraded version of our first stage. We developed the RD-103 engine with larger thrust and burning time, and we streched the first stage to account for the increase in fuel.")
     AJ27Quad = Stage("AJ10-27 Quad", AerobeeStgFam, AJ1027, 
         "An upgraded version of our four-engined second stage. We developed the AJ10-27 engine with larger thrust and burning time, and we streched the second stage to account for the increase in fuel.", 4)
-    
+    AJ27Nose = Stage("AJ10-27", AerobeeStgFam, AJ1027, 
+        "With a similar function as its XASR-1 version, this stage is an upper third stage responsible for final orbital insertion")
+    RD103HStg = Stage("RD-103 Heavy", A4StgFam, RD103, 
+        "A boosted version of the RD-103, this stage has two side boosters that detach earlier, leaving the sustainer to burn for longer")
+    AJ27Penta = Stage("AJ10-27 Penta", AerobeeStgFam, AJ1027, 
+        "A bigger version of our second stage, the AJ10-27 Penta has 5 engines and an elongated tank")
 
 
     ###############################
@@ -91,7 +96,13 @@ def papydb():
         RD101Slim, XASRQuad)
     RD103AJ27SR = LV("RD-103 1.3m SR 2stg", A4LVFam, "An upgraded version of our heavy two-staged sounding rocket for standard missions. It is a modification of our LV1 rocket, using only the first two stages and no guidance.", 
         RD103Stg, AJ27Quad)
-    
+    LV1 = LV("LV-1 Orbital Vehicle", A4LVFam, "Using the RD-103 and AJ10-27 engines, this vehicle is capable of putting very basic payloads into a polar orbit", 
+        RD103Stg, AJ27Quad, AJ27Nose)
+    LV1Control = LV("LV-1 Heavy Orbital vehicle", A4LVFam, "Based on the standard LV-1 vehicle, this rocket has two side boosters using the same RD-103 engines, and a bigger second stage with 5 AJ10-27s.It also uses upper stage avionics for control of the final stage, allowing specific orbits to be reached", 
+        RD103HStg, AJ27Penta, AJ27Nose)
+    RD103AJ27SRH = LV("RD-103 Heavy SR", A4LVFam, "Based on our LV-1 Heavy, this Sounding rocket is the most capable SR we intend to launch.", 
+        RD103HStg, AJ27Quad)
+
 
 
     ###############################
@@ -196,6 +207,46 @@ def papydb():
         Payload("SR-1.3H", ),SO, 0, "First flight of the upgraded version of our heavy Sounding rocket, now using uprated engines in both stages.")
     launch("RD103 AJ-10 SR 2", 1951, 11, 20, RD103AJ27SR, 
         Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle.")
+    launch("RD103 AJ-10 SR 3", 1951, 11, 25, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("LV-1 Polar orbit", 1951, 12, 4, LV1, 
+        Payload("Sat0", ),EPO, 0, "First flight of our RD-103 based Orbital Launch Vehicle. We launched an improved version of our sounding rocket core, with batteries sturdy enough to survive in space for a bit more than one orbit. We sent this probe into a polar orbit, which provided us with invaluable knowledge of the orbital stability by tracking our satellite along its trajectory.")
+    launch("RD103 AJ-10 SR 4", 1951, 12, 8, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 5", 1951, 12, 14, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 6", 1951, 12, 19, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("LV-1 Geyger survey", 1951, 12, 28, LV1, 
+        Payload("Sat0", ),EA, 1, "After developing a geiger counter capable of operating in space, we tried to send it into a polar orbit to attain information of the radiation environment around the globe. Unfortunately the first stage engine failed early in the flight.")
+    launch("RD103 AJ-10 SR 7", 1952, 1, 1, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("LV-1 Geiger survey 2", 1952, 1, 10, LV1, 
+        Payload("Sat0", ),EPO, 0, "In the second try, we managed to put a geiger counter in a polar orbit around Earth. The data obtained by this experiment proved invaluable to our understanding of our magnetic field and the harshness of space.")
+    launch("LV-1 Geiger survey 2", 1952, 1, 10, LV1, 
+        Payload("Sat0", ),EPO, 0, "In the second try, we managed to put a geiger counter in a polar orbit around Earth. The data obtained by this experiment proved invaluable to our understanding of our magnetic field and the harshness of space.")
+    launch("RD103 AJ-10 SR 9", 1952, 1, 19, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 10", 1952, 1, 24, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("LV-1 Controllable Sun-Sync", 1952, 2, 9, LV1Control, 
+        Payload("Contr1Upper", ),SSO, 0, "To reach more specific orbits, we use this controllable upper stage core, to be able to use RCS to reach the specified Sun-synchronous orbit. The LV for that had to be expanded too, using a version of LV-1 with boosters")
+    launch("RD103 AJ-10 SR 11", 1952, 2, 12, RD103AJ27SR, 
+        Payload("SR-1.3H", ),EA, 1, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 12", 1952, 2, 17, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 13", 1952, 2, 22, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 Heavy SR 1", 1952, 3, 10, RD103AJ27SRH, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 14", 1952, 3, 11, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 15", 1952, 3, 14, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 16", 1952, 3, 18, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 17", 1952, 3, 23, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 2, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
 
 
   
