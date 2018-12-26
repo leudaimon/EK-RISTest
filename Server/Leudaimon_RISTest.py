@@ -62,6 +62,18 @@ def papydb():
         "A boosted version of the RD-103, this stage has two side boosters that detach earlier, leaving the sustainer to burn for longer")
     AJ27Penta = Stage("AJ10-27 Penta", AerobeeStgFam, AJ1027, 
         "A bigger version of our second stage, the AJ10-27 Penta has 5 engines and an elongated tank")
+    AJ27Tri = Stage("AJ10-27 Tri", AerobeeStgFam, AJ1027, 
+        "Using third generation tanks we developed new upper stages with different clusters for these upgraded vehicles we call LV-1.5 series. This is the 3-engine version.")
+    AJ27Hepta = Stage("AJ10-27 Hepta", AerobeeStgFam, AJ1027, 
+        "Using third generation tanks we developed new upper stages with different clusters for these upgraded vehicles we call LV-1.5 series. This is the 7-engine version.")
+    LV15HStg = Stage("RD103 Heavy Tank III", A4StgFam, RD103, 
+        "Using third generation tanks we developed new first stages with different clusters for these upgraded vehicles we call LV-1.5 series. This is the biggest version with 2 side boosters and 2 engines in the core stage.")
+    XASRTLI = Stage("TLI unguided stage", AerobeeStgFam, XASR1, 
+        "Dedicated TLI stage for our Lunar Impactor probe using one XASR-1 Engine")
+    AJ27TankIII = Stage("AJ10-27 Tank III", AerobeeStgFam, AJ1027, 
+        "Using third generation tanks we developed new upper stages with different clusters for these upgraded vehicles we call LV-1.5 series. This is the 1-engine version.")
+    LV15LStg = Stage("RD-103 Light Tank III", A4StgFam, RD103, 
+        "Using third generation tanks we developed new first stages with different clusters for these upgraded vehicles we call LV-1.5 series. This is the small version with a single engine core.")
 
 
     ###############################
@@ -102,6 +114,10 @@ def papydb():
         RD103HStg, AJ27Penta, AJ27Nose)
     RD103AJ27SRH = LV("RD-103 Heavy SR", A4LVFam, "Based on our LV-1 Heavy, this Sounding rocket is the most capable SR we intend to launch.", 
         RD103HStg, AJ27Quad)
+    LV15HLuna = LV("LV1.5 Heavy - Luna", A4LVFam, "Our heaviest rocket thus far, this LV has a total of 15 engines considering all stages. This makes it rather unreliable, but allows us to make it into the moon. I sports 4 stages (and a half), all using our new thrid generation tanks. The first stage is based on RD-103 engines, with 2 engines in the core sustainer and 2 boosters. Upper stages have clusters of 7 and 3 AJ10-27s, and the final upper stage for TLI has a single XASR-1.", 
+        LV15HStg, AJ27Hepta, AJ27Tri, XASRTLI)
+    LV15Light = LV("LV1.5 Light", A4LVFam, "A light LV using our third generation tanks. This LV allows us to inject a controllable upper stage core with plenty RCS fuel into an eccentric polar orbit.", 
+        LV15LStg, AJ27Tri, AJ27TankIII)
 
 
 
@@ -222,9 +238,7 @@ def papydb():
     launch("RD103 AJ-10 SR 7", 1952, 1, 1, RD103AJ27SR, 
         Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
     launch("LV-1 Geiger survey 2", 1952, 1, 10, LV1, 
-        Payload("Sat0", ),EPO, 0, "In the second try, we managed to put a geiger counter in a polar orbit around Earth. The data obtained by this experiment proved invaluable to our understanding of our magnetic field and the harshness of space.")
-    launch("LV-1 Geiger survey 2", 1952, 1, 10, LV1, 
-        Payload("Sat0", ),EPO, 0, "In the second try, we managed to put a geiger counter in a polar orbit around Earth. The data obtained by this experiment proved invaluable to our understanding of our magnetic field and the harshness of space.")
+        Payload("Sat0", ),EPO, 0, "In the second try, we managed to put a geiger counter in a polar orbit around Earth. The data obtained by this experiment proved invaluable to our understanding of our magnetic field and the harshness of space.")    
     launch("RD103 AJ-10 SR 9", 1952, 1, 19, RD103AJ27SR, 
         Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
     launch("RD103 AJ-10 SR 10", 1952, 1, 24, RD103AJ27SR, 
@@ -247,6 +261,24 @@ def papydb():
         Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
     launch("RD103 AJ-10 SR 17", 1952, 3, 23, RD103AJ27SR, 
         Payload("SR-1.3H", ),SO, 2, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 18", 1952, 3, 27, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 19", 1952, 3, 31, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 20", 1952, 4, 5, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 21", 1952, 4, 10, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("LV-1.5 Heavy - Luna 1!!", 1952, 5, 27, LV15HLuna, 
+        Payload("Luna", "Lunar flyby","Lunar Impact"),LI, 0, "Our first, and amazingly sucessful Lunar Impact mission. Using our most massive rocket so far, this unguided TLI lunar impactor returned valuable science on the environment around the moon.")
+    launch("LV-1.5 Heavy - Luna 2", 1952, 6, 1, LV15HLuna, 
+        Payload("Luna", ),LI, 2, "Our second try at a lunar impact failed early during launch when one of the engines in our second stage failed to activate.")
+    launch("RD103 AJ-10 SR 22", 1952, 5, 29, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 0, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("RD103 AJ-10 SR 23", 1952, 6, 2, RD103AJ27SR, 
+        Payload("SR-1.3H", ),SO, 1, "Routine Sounding Rocket mission with our dedicated rocket based on our orbital vehicle")
+    launch("LV-1.5 Light - Solar power", 1952, 6, 8, LV15Light, 
+        Payload("Contr2Upper", ),EPO, 0, "Our prototype solar-powered craft. We adapted our Upper stage unit with a pair of solar cells to test if those work in space. Still not enough to keep our stage working indefinitely, but should be very useful in future launches of less demanding spacecraft.")
 
 
   
